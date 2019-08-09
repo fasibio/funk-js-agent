@@ -1,0 +1,17 @@
+{
+  "name": "funk-agent",
+  "version": "1.0.0",
+  "description": "An Agent to call direkt from your javascript/node application to funk server",
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "link": "npm run build && cd dist && npm link"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  }
+}

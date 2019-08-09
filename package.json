@@ -9,9 +9,19 @@
     "build": "tsc",
     "link": "npm run build && cd dist && npm link"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fasibio/funk-js-agent"
+  },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
+    "@types/ws": "^6.0.2",
     "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@types/websocket": "0.0.40",
+    "websocket": "^1.0.29",
+    "ws": "^7.1.1"
   }
 }

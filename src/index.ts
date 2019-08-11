@@ -1,1 +1,1 @@
-export {Message, MessageType, funkAgent} from './funk-agent'
+export {Message, MessageType, FunkAgent} from './funk-agent'

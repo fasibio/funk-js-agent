@@ -7,7 +7,8 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "link": "npm run build && cd dist && npm link"
+    "link": "npm run build && cd dist && rm -rf tester && npm link",
+    "start": "npm run build && node ./dist/tester/index.js"
   },
   "repository": {
     "type": "git",

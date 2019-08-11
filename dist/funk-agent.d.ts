@@ -14,11 +14,15 @@ export declare type Message = {
         container_id?: string;
     };
 };
-export declare class funkAgent {
+export declare class FunkAgent {
     private serverUrl;
     private accessKey;
     private wsCon;
+    private queueMessages;
     constructor(serverURL: string, accessKey: string);
+    clearQueueMessage(): Message[];
+    addQueueMessage(msg: Message[]): void;
+    private getWsConnection;
     connect: (cb: (obj: ConnectedObj) => void) => void;
 }
 declare type ConnectedObj = {

@@ -1,4 +1,4 @@
-import {client as WebSocketClient, connection} from 'websocket'
+import * as Websocket from 'ws'
 
 export enum MessageType{
   Log= "LOG"
@@ -18,29 +18,53 @@ export type Message = {
   }
 }
 
-export class funkAgent{
+export class FunkAgent{
 private serverUrl = ""
 private accessKey = ""
-private wsCon: WebSocketClient
+private wsCon: Websocket
+private queueMessages : Message[] = []
 constructor(serverURL: string, accessKey: string){
   this.serverUrl = serverURL
   this.accessKey = accessKey
 }
 
+public clearQueueMessage(): Message[] {
+  const res = [...this.queueMessages]
+  this.queueMessages = []
+  return res
+}
+
+public addQueueMessage(msg: Message[]) {
+  this.queueMessages = [...this.queueMessages, ...msg]
+}
+
+private getWsConnection(): Websocket {
+  return new Websocket(this.serverUrl+"/data/subscribe",{
+    headers: {
+      "funk.connection": this.accessKey,
+    }
+  }) 
+}
 
 connect = (cb: (obj:ConnectedObj) => void) => {
-  this.wsCon = new WebSocketClient()
-  this.wsCon.on("connect", (connection) => {
+  this.wsCon =  this.getWsConnection()
+
+
+  this.wsCon.on("open", () => {
     cb({
-      send: send(connection),
+      send: send(this.wsCon, this),
     })
   })
-  this.wsCon.on("connectFailed", (e) => {
-    console.log(e)
+  this.wsCon.on("close", (e,e2) => {
+    setTimeout(() =>{
+      this.wsCon.removeAllListeners()
+      this.wsCon.removeEventListener("open")
+      this.connect(cb)
+    } ,3000)
+    console.log("close",e, e2)
   })
-  
-  this.wsCon.connect(this.serverUrl+"/data/subscribe",[],"",{
-    "funk.connection": 'changeMe04cf242924f6b5f96',
+  this.wsCon.on("error", (e) => {
+    console.log("error",e)
   })
 }
 
@@ -48,19 +72,18 @@ connect = (cb: (obj:ConnectedObj) => void) => {
 
 }
 
-const send = (connection: connection) =>  {
+const send = (ws: Websocket, funkAgent:FunkAgent) =>  {
   
-  connection.on("error", (m) =>{
-    console.log("error by send data", m )
-  })
-  connection.on("close", (m) => {
-    console.log("close by send data", m )
-  })
   return (obj: Message[]): boolean => {
-  connection.sendUTF(JSON.stringify(obj))
-  
-  connection.on
-  return true
+
+    const queue = funkAgent.clearQueueMessage()
+    ws.send(JSON.stringify([...obj, ...queue]),(e)=> {
+      if (e !== undefined){
+        console.log("error by send", e )
+        funkAgent.addQueueMessage(obj)
+      }
+    })
+    return true
 }
 }
 

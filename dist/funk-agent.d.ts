@@ -1,6 +1,17 @@
 export declare enum MessageType {
     Log = "LOG"
 }
+export declare type SugarMessage = {
+    data: {}[];
+    searchindex: string;
+    attr: {
+        hostname: string;
+        container: string;
+        service?: string;
+        namespace?: string;
+        container_id?: string;
+    };
+};
 export declare type Message = {
     time: Date;
     data: string[];
@@ -20,12 +31,10 @@ export declare class FunkAgent {
     private wsCon;
     private queueMessages;
     constructor(serverURL: string, accessKey: string);
-    clearQueueMessage(): Message[];
-    addQueueMessage(msg: Message[]): void;
+    private clearQueueMessage;
+    private addQueueMessage;
     private getWsConnection;
-    connect: (cb: (obj: ConnectedObj) => void) => void;
+    send: (obj: Message[], onError?: (e: Error) => void) => void;
+    sendSugar: (obj: SugarMessage, onError?: (e: Error) => void) => void;
+    private sender;
 }
-declare type ConnectedObj = {
-    send: (obj: Message[]) => boolean;
-};
-export {};

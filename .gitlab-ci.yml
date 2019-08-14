@@ -1,0 +1,13 @@
+publishLib:
+  image: node:10
+  only: 
+    - master
+  tags:
+    - dockerfasibio
+  script: 
+    - npm publish
+  stage: publish
+
+stages: 
+  - publish
+  

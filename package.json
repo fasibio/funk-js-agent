@@ -1,12 +1,17 @@
 {
   "name": "funk-agent",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "An Agent to call direkt from your javascript/node application to funk server",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
+  "files":[
+    "/dist"
+  ],
+  "autor": "fasibio",
   "scripts": {
     "test": "jest",
     "build": "tsc",
+    "prepare": "npm run build && rm -rf dist/tester ",
     "link": "npm run build && cd dist && rm -rf tester && npm link",
     "start": "npm run build && node ./dist/tester/index.js"
   },

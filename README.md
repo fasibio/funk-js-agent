@@ -19,7 +19,7 @@ npm install funk-agent --save
 
 Optimal you have a loging lib like winston or something else. 
 
-IMPORTANT: 
+**IMPORTANT:**
 
 set this Code by Applicationstart: 
 ```
@@ -49,6 +49,7 @@ And now you can log inside you logging event.
 You can choose the function ```sendSugar``` and ```send```
 
 ```sendSugar``` is a littlebit slower but easier to use
+
 ```send``` is faster but you more complex. 
 
 Normally ```sendSugar``` will be fast enough. 

@@ -1,4 +1,6 @@
 # Funk-js-agent
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffasibio%2Ffunk-js-agent.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffasibio%2Ffunk-js-agent?ref=badge_shield)
+
 This is a lib to send Logmessages directly from your Javascript/Node.js Application to a [Funkserver](https://github.com/fasibio/funk-server)
 
 
@@ -66,3 +68,7 @@ You send messages will be add to a queue and sending later. After connection is 
 Here is a small example Projekt: [funk-js-agent-example](https://github.com/fasibio/funk-js-agent-example)
 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffasibio%2Ffunk-js-agent.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffasibio%2Ffunk-js-agent?ref=badge_large)
